@@ -23,6 +23,7 @@ data "aws_subnet" "existing_public_subnet" {
     name   = "cidr-block"
     values = ["10.0.1.0/24"]
   }
+
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.main_vpc.id]
@@ -57,7 +58,6 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
-
 ####################
 # EC2 Instance
 ####################
@@ -68,11 +68,18 @@ resource "aws_instance" "fastapi_ec2" {
   vpc_security_group_ids      = [data.aws_security_group.existing_sg.id]
   associate_public_ip_address = true
   key_name                    = var.key_name
-  #security_groups        = [aws_security_group.fastapi_sg.name]
 
-  user_data              = file("${path.module}/../user_data.sh")
+  user_data = file("${path.module}/../user_data.sh")
 
   tags = {
     Name = "FastAPI-EC2-july21"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = [
+      user_data,          # Don't re-create EC2 if user_data changes
+      tags,               # Don't recreate on tag changes
+    ]
   }
 }
