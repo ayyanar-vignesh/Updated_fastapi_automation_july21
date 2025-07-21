@@ -1,0 +1,43 @@
+name: 🚀 Deploy FastAPI to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -input=false
+
+    - name: Get EC2 Public IP from Terraform
+      id: ip
+      run: |
+        echo "public_ip=$(terraform output -raw ec2_public_ip)" >> $GITHUB_OUTPUT
+
+    - name: Install FastAPI App on EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ steps.ip.outputs.public_ip }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          sudo apt update -y
+          sudo apt install -y python3-pip git
+          rm -rf july16_fastapi_dynamo_morning
+          git clone https://github.com/ayyanar-vignesh/july16_fastapi_dynamo_morning.git
+          cd july16_fastapi_dynamo_morning
+          sudo pip3 install -r requirements.txt
+          pkill uvicorn || true
+          nohup uvicorn main:app --host 0.0.0.0 --port 8000 &

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INR Bank - Landing Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-left a, .nav-right a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-left a:hover, .nav-right a:hover {
+      text-decoration: underline;
+    }
+
+    .signin-btn {
+      background-color: white;
+      color: #003366;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .subnav {
+      background-color: #004080;
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 12px;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+
+    .subnav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .subnav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      padding: 40px 20px;
+      min-height: 500px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #003366;
+      flex-wrap: wrap;
+    }
+
+    .hero .left-box {
+      background-color: white;
+      padding: 30px;
+      max-width: 450px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero .left-box h1 {
+      font-size: 1.8rem;
+      color: #0052cc;
+      margin-bottom: 10px;
+    }
+
+    .hero .left-box p {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .hero .left-box button {
+      background-color: #0052cc;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .hero .right-box {
+      background-color: #f3f3f3;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 320px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero .right-box select,
+    .hero .right-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .hero .right-box .tab {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .hero .right-box .tab span {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background-color: #e0e0e0;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 0 2px;
+      cursor: pointer;
+    }
+
+    .hero .right-box .tab .active {
+      background-color: #004080;
+      color: white;
+    }
+
+    .hero .right-box .links {
+      font-size: 0.85rem;
+      text-align: right;
+    }
+
+    .hero .right-box .links a {
+      color: #0052cc;
+      text-decoration: none;
+    }
+
+    .hero .right-box button {
+      background-color: #0052cc;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      font-weight: bold;
+      margin-top: 15px;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .hero .right-box .start {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .hero .right-box .start a {
+      color: #003366;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    footer {
+      background-color: #002244;
+      color: white;
+      padding: 30px 20px;
+    }
+
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    footer h3, footer h4 {
+      margin-bottom: 10px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding-left: 0;
+      line-height: 1.8;
+    }
+
+    footer p {
+      line-height: 1.6;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #ccc;
+      margin-top: 30px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero .left-box, .hero .right-box {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">INR 123 <span style="color: lightblue;">Bank</span></div>
+    <div class="nav-left">
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+      <a href="#">Education</a>
+      <a href="#">Español</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login" class="signin-btn" style="color: blue;">🔒 User Sign In</a>
+      <a href="/register" class="signin-btn" style="color: blue;">🔒 User Sign Up</a>
+    </div>
+  </header>
+
+  <!-- Sub Navigation -->
+  <div class="subnav">
+    <a href="/register"><strong>Create User Account</strong></a>
+    <a href="#">Business</a>
+    <a href="#">Wealth</a>
+    <a href="#">Checking</a>
+    <a href="#">Save</a>
+    <a href="#">Cards</a>
+    <a href="#">Loans</a>
+    <a href="#">Digital</a>
+    <a href="#">HSAs</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="left-box">
+      <h1>Credit Monitor keeps you informed.</h1>
+      <p>Your credit picture anytime—free with your Balanced or Choice checking account.</p>
+      <button>Read More</button>
+    </div>
+
+    <div class="right-box">
+      <div class="tab">
+        <span class="active">PERSONAL</span>
+        <span>BUSINESS</span>
+      </div>
+      <label for="banking">Digital Banking</label>
+      <select>
+        <option>Digital Banking</option>
+        <option>Credit Card</option>
+        <option>Mortgage</option>
+      </select>
+
+      <a href="#" style="font-size: 0.85rem;">Digital Banking FAQ</a>
+
+      <input type="text" placeholder="Username">
+      <div class="links">
+        <a href="#">Forgot Username?</a>
+      </div>
+
+      <input type="password" placeholder="Password">
+      <div class="links">
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <button>Sign In</button>
+
+      <div class="start">
+        New to Digital Banking? <a href="#">Start here.</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>INR Bank</h3>
+        <p>Secure. Trusted. Local. INR Bank offers reliable financial services with digital ease and personal care.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Checking Accounts</a></li>
+          <li><a href="#">Savings & Deposits</a></li>
+          <li><a href="#">Loans & Credit</a></li>
+          <li><a href="#">Digital Banking</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Customer Service</a></li>
+          <li><a href="#">Security Center</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Branch Locator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <p>
+          <a href="#">Facebook</a><br>
+          <a href="#">Twitter</a><br>
+          <a href="#">LinkedIn</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 INR Bank. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
