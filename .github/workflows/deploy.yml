@@ -45,12 +45,11 @@ jobs:
         echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
         chmod 600 key.pem
 
-    - name: 📤 Upload main.py via SCP
+    - name: 📤 Upload FastAPI app via SCP
       run: |
         scp -o StrictHostKeyChecking=no -i key.pem main.py ubuntu@${{ steps.ip.outputs.public_ip }}:/home/ubuntu/main.py
 
     - name: 🚀 Run FastAPI app on EC2
-      working-directory: terraform
       run: |
         ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ steps.ip.outputs.public_ip }} << EOF
           sudo apt update
