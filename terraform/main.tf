@@ -70,6 +70,7 @@ resource "aws_instance" "fastapi_ec2" {
   key_name                    = var.key_name
 
   user_data = file("${path.module}/../user_data.sh")
+  user_data_replace_on_change = false
 
   tags = {
     Name = "FastAPI-EC2-july21"
