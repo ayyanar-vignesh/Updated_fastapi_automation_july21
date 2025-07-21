@@ -57,13 +57,6 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
-##########################
-# Route Table Association
-##########################
-resource "aws_route_table_association" "public_assoc" {
-  subnet_id      = data.aws_subnet.existing_public_subnet.id
-  route_table_id = aws_route_table.public_rt.id
-}
 
 ####################
 # EC2 Instance
