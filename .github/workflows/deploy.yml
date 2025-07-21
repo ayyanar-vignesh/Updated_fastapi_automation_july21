@@ -8,25 +8,39 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Repo
+    - name: 📦 Checkout Repo
       uses: actions/checkout@v3
 
-    - name: Set up Terraform
+    - name: 🔐 Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1
+
+    - name: 🛠 Set up Terraform
       uses: hashicorp/setup-terraform@v3
 
-    - name: Terraform Init
+    - name: ⚙️ Terraform Init
       run: terraform init
+      working-directory: terraform
 
-    - name: Terraform Apply
+    - name: 🚀 Terraform Apply
       run: terraform apply -auto-approve -input=false
+      working-directory: terraform
 
-    - name: Get EC2 Public IP from Terraform
+    - name: 🌐 Get EC2 Public IP from Terraform
       id: ip
       run: |
         echo "public_ip=$(terraform output -raw ec2_public_ip)" >> $GITHUB_OUTPUT
+      working-directory: terraform
 
-    - name: Install FastAPI App on EC2
+    - name: 🧠 Wait for EC2 to be ready
+      run: sleep 60  # Optional, gives time for EC2 to initialize
+
+    - name: 🐍 Install FastAPI App on EC2
       uses: appleboy/ssh-action@master
       with:
         host: ${{ steps.ip.outputs.public_ip }}
